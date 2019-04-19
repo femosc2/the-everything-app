@@ -18,12 +18,12 @@ export default new Router({
     },
     {
       path: '/movies/movieSearch',
-      name: 'movies',
+      name: 'moviesSearch',
       component: () => import('./views/MoviesSearch.vue')
     },
     {
       path: '/movies/library',
-      name: 'movies',
+      name: 'moviesLibrary',
       component: () => import('./views/MoviesLibrary.vue')
     }
   ]
