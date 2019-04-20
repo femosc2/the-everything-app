@@ -17,7 +17,7 @@ export default new Router({
       component: () => import('./views/Movies.vue')
     },
     {
-      path: '/movies/movieSearch',
+      path: '/movies/search',
       name: 'moviesSearch',
       component: () => import('./views/MoviesSearch.vue')
     },
@@ -25,6 +25,21 @@ export default new Router({
       path: '/movies/library',
       name: 'moviesLibrary',
       component: () => import('./views/MoviesLibrary.vue')
+    },
+    {
+      path: '/media',
+      name: 'media',
+      component: () => import('./views/Media.vue')
+    },
+    {
+      path: '/media/library',
+      name: 'mediaLibrary',
+      component: () => import('./views/MediaLibrary.vue')
+    },
+    {
+      path: '/media/upload',
+      name: 'mediaUpload',
+      component: () => import('./views/MediaUpload.vue')
     }
   ]
 })

@@ -2,7 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Weather</router-link> |
-      <router-link to="/movies">Movies</router-link>
+      <router-link to="/movies">Movies</router-link> |
+      <router-link to="/media">Media</router-link> |
     </div>
     <router-view/>
   </div>
