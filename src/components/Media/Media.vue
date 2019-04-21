@@ -1,8 +1,8 @@
 <template>
     <div>
         <div id="nav">
-            <router-link to="/movies/Search">Search</router-link>
-            <router-link to="/movies/Library">Library</router-link>
+            <router-link to="/media/Upload">Upload</router-link>
+            <router-link to="/media/Library">Library</router-link>
         </div>
     </div>
 </template>
