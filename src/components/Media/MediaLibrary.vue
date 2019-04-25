@@ -13,7 +13,7 @@
             </audio>
         </section>
         <section class="videoSection">
-            <video v-for="(video, index) in userVideos" :key=index width="320" height="240" controls>
+            <video v-for="(video, index) in userVideos" :key=index controls>
                 <source :src="'http://ddwap.mah.se/ah8301/' + video.path" type="video/mp4">
                 <source :src="'http://ddwap.mah.se/ah8301/' + video.path" type="video/ogg">
                 Your browser does not support the video tag.
@@ -52,5 +52,14 @@ export default {
 </script>
 
 <style>
+video {
+    height: 240px;
+    width: 320px;
+}
+
+img {
+    height: 240px;
+    width: 33%;
+}
 
 </style>

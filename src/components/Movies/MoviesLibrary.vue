@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul>
-            <md-card class="card" v-for="(movie,index) in userLibrary" :key=index>
+            <md-card md-with-hover class="card" v-for="(movie,index) in userLibrary" :key=index>
                 <md-card-header>
                     <h2>{{ movie.title }}</h2>
                     <h3> {{ movie.year}}</h3>
@@ -10,7 +10,7 @@
                     <img class="poster" :src=movie.poster alt="Poster">
                 </md-card-media>
                 <md-card-actions>
-                    <md-button><a :href="movie.link">Link to IMDB</a></md-button>
+                    <md-button><a :href="'https://www.imdb.com/title/' + movie.link">Link to IMDB</a></md-button>
                     <md-button @click="removeFromLibrary(index)">Remove</md-button>
                 </md-card-actions>
             </md-card>
@@ -30,12 +30,10 @@ export default {
             this.userLibrary = JSON.parse(localStorage.getItem("movieLibrary"));
         },
         removeFromLibrary(index) {
-            console.log(index + 1)
             let existing = JSON.parse(localStorage.getItem("movieLibrary"))
             existing = existing.splice(index + 1)
-            console.log(existing)
             localStorage.setItem("movieLibrary", JSON.stringify(existing))
-            this.userLibrary.shift(index + 1)
+            this.userLibrary.shift(index)
         }
     },
     created() {
@@ -54,5 +52,9 @@ export default {
 .card {
     margin-top: 5%;
     margin-bottom: 5%;
+}
+
+ul {
+    padding: 0;
 }
 </style>
