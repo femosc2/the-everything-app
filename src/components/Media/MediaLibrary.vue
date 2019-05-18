@@ -1,10 +1,13 @@
 <template>
     <div>
         <h2>Library</h2>
-        <section class="imagesSection">
-            <img v-for="(photo, index) in userPhotos" :key=index :src="'http://ddwap.mah.se/ah8301/' + photo.path" alt=photo.path>
+        <md-button class="md-primary" @click="chooseSection('photos')">Photos</md-button>
+        <md-button class="md-accent" @click="chooseSection('audio')">Audio</md-button>
+        <md-button @click="chooseSection('videos')">Videos</md-button>
+        <section class="imagesSection" v-if="chosenSection === 'photos'">
+            <img v-for="(photo, index) in userPhotos" :key=index :src="'http://ddwap.mah.se/ah8301/' + photo.path" :alt="photo.title">
         </section>
-        <section class="audioSection">
+        <section class="audioSection" v-if="chosenSection === 'audio'">
             <audio v-for="(audio, index) in userAudio" :key=index controls>
                 <source :src="'http://ddwap.mah.se/ah8301/' + audio.path" type="audio/mp3">
                 <source :src="'http://ddwap.mah.se/ah8301/' + audio.path" type="audio/ogg">
@@ -12,7 +15,7 @@
                 Your browser does not support the audio element.
             </audio>
         </section>
-        <section class="videoSection">
+        <section class="videoSection" v-if="chosenSection === 'videos'">
             <video v-for="(video, index) in userVideos" :key=index controls>
                 <source :src="'http://ddwap.mah.se/ah8301/' + video.path" type="video/mp4">
                 <source :src="'http://ddwap.mah.se/ah8301/' + video.path" type="video/ogg">
@@ -29,7 +32,8 @@ export default {
         return {
             userPhotos: [],
             userVideos: [],
-            userAudio: []
+            userAudio: [],
+            chosenSection: null,
         }
     },
     methods: {
@@ -43,6 +47,9 @@ export default {
             axios.get("http://ddwap.mah.se/ah8301/server.php?action=getMedia&type=video").then((response) => {
                 this.userVideos = response.data.files
             })
+        },
+        chooseSection(section) {
+            this.chosenSection = section;
         }
     },
     created() {

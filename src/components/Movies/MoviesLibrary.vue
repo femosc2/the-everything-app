@@ -50,11 +50,19 @@ export default {
 }
 
 .card {
+    margin: 0 auto;
     margin-top: 5%;
     margin-bottom: 5%;
+    width: 50%;
 }
 
 ul {
     padding: 0;
+}
+
+@media screen and (max-width: 1360px) {
+  .card {
+    width: 100%;
+  }
 }
 </style>

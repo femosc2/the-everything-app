@@ -20,18 +20,26 @@
                 </md-card-actions>
             </md-card>
         </ul>
+        <md-snackbar :md-position="position" :md-duration="isInfinity ? Infinity : duration" :md-active.sync="showSnackbar" md-persistent>
+          <span>Movie saved!</span>
+        </md-snackbar>
         <md-button class="md-raised" @click="clearStorage">Clear LocalStorage</md-button>
     </div>
 </template>
 
 <script>
 import axios from "axios";
+import { version } from 'punycode';
 export default {
   data() {
     return {
       userMovies: [],
       userSearch: null,
       movieSearch: "",
+      showSnackbar: false,
+      position: 'center',
+      duration: 4000,
+      isInfinity: false
     };
   },
   methods: {
@@ -43,11 +51,11 @@ export default {
         .then(response => {
           let data = response.data;
           this.userSearch = data.Search;
-          this.movieLink = "https://imbd.com/title/" + this.userSearch.imdbID;
         });
     },
     favoriteMovie(index) {
       localStorage.favoriteMovie = this.userSearch[index].imdbID;
+      this.showSnackbar = true;
     },
     addMovieToLibrary(index) {
       let existing = JSON.parse(localStorage.getItem("movieLibrary"));
@@ -63,6 +71,7 @@ export default {
       existing.push(movie);
       existing = JSON.stringify(existing);
       localStorage.setItem("movieLibrary", existing);
+      this.showSnackbar = true;
     },
     clearStorage() {
       localStorage.clear();
@@ -73,16 +82,26 @@ export default {
 
 <style scoped>
 .poster {
-  height: 200px;
   width: 200px;
 }
 
 .card {
+  margin: 0 auto;
   margin-top: 5%;
   margin-bottom: 5%;
+  width: 50%;
 }
 
 .searchContainer {
   height: 100vh;
+}
+ul {
+  padding: 0;
+}
+
+@media screen and (max-width: 1360px) {
+  .card {
+    width: 100%;
+  }
 }
 </style>
