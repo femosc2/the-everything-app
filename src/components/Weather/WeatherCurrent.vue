@@ -1,14 +1,15 @@
 <template>
     <div>
-        <ul>
-            <md-card>
-                <md-card-header>
-                    <h2>{{ userCity }}</h2>
-                    <h3> {{ userTemperature}} {{userWeather}}</h3>
-                    <h3><img :src="'http://openweathermap.org/img/w/' + userIcon" alt=""></h3>
-                </md-card-header>
-            </md-card>
-        </ul>
+      <div class="spinner">
+        <md-progress-spinner md-mode="indeterminate" v-if="!weatherLoaded"></md-progress-spinner>
+      </div>
+        <md-card v-if="weatherLoaded" class="card">
+            <md-card-header>
+                <h2>{{ userCity }}</h2>
+                <h3> {{ userTemperature}} {{userWeather}}</h3>
+                <h3><img :src="'http://openweathermap.org/img/w/' + userIcon" alt=""></h3>
+            </md-card-header>
+        </md-card>
     </div>
 </template>
 
@@ -22,7 +23,8 @@ export default {
       userTemperature: "",
       userCity: "",
       userWeather: "",
-      userIcon: ""
+      userIcon: "",
+      weatherLoaded: false
     };
   },
   methods: {
@@ -50,6 +52,7 @@ export default {
           let kelvinTemperature = data.main.temp;
           this.userTemperature = Math.floor(kelvinTemperature - 273.15) + "C";
           this.userIcon = data.weather[0].icon + ".png";
+          this.weatherLoaded = true;
         });
     },
     displayWeather() {
@@ -67,8 +70,25 @@ export default {
 </script>
 
 <style scoped>
-    ul {
-        margin: 0 auto;
-        padding: 0;
-    }
+ul {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.card {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.spinner {
+  margin: 0 auto;
+  text-align: center;
+}
+
+@media screen and (max-width: 1360px) {
+  .card {
+    width: 100%;
+  }
+}
 </style>
