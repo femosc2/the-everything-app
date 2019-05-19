@@ -1,6 +1,6 @@
 <template>
     <div class="searchContainer">
-        <md-field>
+        <md-field class="movieSearch">
             <label>Search for Movie here!</label>
             <md-input v-model="movieSearch"></md-input>
             <md-button class="md-raised" @click="searchMovie">Search</md-button>
@@ -23,7 +23,6 @@
         <md-snackbar :md-position="position" :md-duration="isInfinity ? Infinity : duration" :md-active.sync="showSnackbar" md-persistent>
           <span>Movie saved!</span>
         </md-snackbar>
-        <md-button class="md-raised" @click="clearStorage">Clear LocalStorage</md-button>
     </div>
 </template>
 
@@ -58,7 +57,7 @@ export default {
       this.showSnackbar = true;
     },
     addMovieToLibrary(index) {
-      let existing = JSON.parse(localStorage.getItem("movieLibrary"));
+      existing = JSON.parse(localStorage.getItem("movieLibrary"));
       if (existing == null) {
         existing = [];
       }
@@ -73,9 +72,6 @@ export default {
       localStorage.setItem("movieLibrary", existing);
       this.showSnackbar = true;
     },
-    clearStorage() {
-      localStorage.clear();
-    }
   }
 };
 </script>
@@ -95,13 +91,22 @@ export default {
 .searchContainer {
   height: 100vh;
 }
+
 ul {
   padding: 0;
+}
+
+.movieSearch {
+  width: 50%;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 1360px) {
   .card {
     width: 100%;
   }
+  .movieSearch {
+  width: 100%;
+}
 }
 </style>

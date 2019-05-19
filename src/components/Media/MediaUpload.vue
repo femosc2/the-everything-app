@@ -27,6 +27,11 @@
             
             <md-button class="md-raised" @click="upload" v-if="uploadTitle.length > 3">Upload</md-button>
             <md-progress-bar md-mode="determinate" :md-value="uploadProgress"></md-progress-bar>
+
+            <md-snackbar :md-position="position" :md-duration="isInfinity ? Infinity : duration" :md-active.sync="showSnackbar" md-persistent>
+              <span>{{ statusMessage }}</span>
+              <md-button class="md-primary" @click="showSnackbar = false">Retry</md-button>
+            </md-snackbar>
         </form>
     </div>
 </template>
@@ -42,8 +47,12 @@ export default {
       recordVideo: false,
       takePhoto: false,
       recordAudio: false,
-      uploadFile: false,
       chosenType: null,
+      showSnackbar: false,
+      position: 'center',
+      duration: 4000,
+      isInfinity: false,
+      statusMessage: "statusMessage"
 
     };
   },
@@ -54,9 +63,16 @@ export default {
         const config = {
         onUploadProgress: progressEvent => this.uploadProgress = ((progressEvent.loaded/progressEvent.total) * 100)
           }
+        formData.append("title", this.uploadTitle)
 
         axios.post("http://ddwap.mah.se/ah8301/server.php", formData, config).then((response) => {
-          console.log(response);
+          if (response.data.success === true) {
+            this.statusMessage = "File uploaded!"
+            this.showSnackbar = true
+          } else {
+            this.statusMessage = "File upload failed!"
+            this.showSnackbar = true
+          }
         });
       }
     },

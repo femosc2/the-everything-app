@@ -1,13 +1,15 @@
 <template>
     <div>
-      <md-progress-spinner class="spinner" md-mode="indeterminate" v-if="!weatherLoaded"></md-progress-spinner>
-            <md-card v-if="weatherLoaded" class="card">
-                <md-card-header>
-                    <h2>{{ userCity }}</h2>
-                    <h3> {{ userTemperature}} {{userWeather}}</h3>
-                    <h3><img :src="'http://openweathermap.org/img/w/' + userIcon" alt=""></h3>
-                </md-card-header>
-            </md-card>
+      <div class="spinner">
+        <md-progress-spinner md-mode="indeterminate" v-if="!weatherLoaded"></md-progress-spinner>
+      </div>
+        <md-card v-if="weatherLoaded" class="card">
+            <md-card-header>
+                <h2>{{ userCity }}</h2>
+                <h3> {{ userTemperature}} {{userWeather}}</h3>
+                <h3><img :src="'http://openweathermap.org/img/w/' + userIcon" alt=""></h3>
+            </md-card-header>
+        </md-card>
     </div>
 </template>
 
@@ -81,6 +83,7 @@ ul {
 
 .spinner {
   margin: 0 auto;
+  text-align: center;
 }
 
 @media screen and (max-width: 1360px) {
